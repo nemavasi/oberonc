@@ -13,15 +13,15 @@ build:
 	java -cp $(OBERON_BIN) oberonc out $(MOD_SOURCES)
 
 bootstrap:
-	javac -d compiler $(JAVA_SOURCES)
-	java -cp $(OBERON_BIN) oberonc compiler $(MOD_SOURCES)
+	javac -d bin $(JAVA_SOURCES)
+	java -cp $(OBERON_BIN) oberonc bin $(MOD_SOURCES)
 
 bootstrapTest:
 	rm -rf bootstrapOut/
 	mkdir -p bootstrapOut/
 	java -cp $(OBERON_BIN) oberonc bootstrapOut $(MOD_SOURCES)
 	sha1sum -b bootstrapOut/* > sha1sums0.txt
-	sed s/bootstrapOut/compiler/ sha1sums0.txt > sha1sums1.txt
+	sed s/bootstrapOut/bin/ sha1sums0.txt > sha1sums1.txt
 	sha1sum -c --quiet sha1sums1.txt
 	rm sha1sums0.txt sha1sums1.txt
 
