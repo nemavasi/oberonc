@@ -1,11 +1,11 @@
 .POSIX:
 .SUFFIXES:
 
-JAVA_SOURCES = src/java/Files_FileDesc.java  src/java/Files.java \
-               src/java/OberonRuntime.java  src/java/Os.java  src/java/Out.java
-MOD_SOURCES = src/Out.Mod src/Os.Mod src/Files.Mod src/Strings.Mod src/OJS.Mod \
-              src/CpCache.Mod src/Opcodes.Mod src/ClassFormat.Mod src/OJB.Mod \
-              src/OJG.Mod src/OJP.Mod src/oberonc.Mod
+JAVA_SOURCES = mod/java/Files_FileDesc.java  mod/java/Files.java \
+               mod/java/OberonRuntime.java  mod/java/Os.java  mod/java/Out.java
+MOD_SOURCES = mod/Out.Mod mod/Os.Mod mod/Files.Mod mod/Strings.Mod mod/OJS.Mod \
+              mod/CpCache.Mod mod/Opcodes.Mod mod/ClassFormat.Mod mod/OJB.Mod \
+              mod/OJG.Mod mod/OJP.Mod mod/oberonc.Mod
 
 build:
 	mkdir -p out/
@@ -13,15 +13,15 @@ build:
 	java -cp $(OBERON_BIN) oberonc out $(MOD_SOURCES)
 
 bootstrap:
-	javac -d bin $(JAVA_SOURCES)
-	java -cp $(OBERON_BIN) oberonc bin $(MOD_SOURCES)
+	javac -d compiler $(JAVA_SOURCES)
+	java -cp $(OBERON_BIN) oberonc compiler $(MOD_SOURCES)
 
 bootstrapTest:
 	rm -rf bootstrapOut/
 	mkdir -p bootstrapOut/
 	java -cp $(OBERON_BIN) oberonc bootstrapOut $(MOD_SOURCES)
 	sha1sum -b bootstrapOut/* > sha1sums0.txt
-	sed s/bootstrapOut/bin/ sha1sums0.txt > sha1sums1.txt
+	sed s/bootstrapOut/compiler/ sha1sums0.txt > sha1sums1.txt
 	sha1sum -c --quiet sha1sums1.txt
 	rm sha1sums0.txt sha1sums1.txt
 

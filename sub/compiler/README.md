@@ -38,24 +38,24 @@ Intel i5 @ 2.80GHz (~ 100 ms with a hot VM).
 You can build the compiler on Linux or Windows, you need a JDK >= 1.8
 installed, with java and javac in the environment path.
 
-First of all, you need to set the OBERON_BIN environmental variable to the `bin`
+First of all, you need to set the OBERON_BIN environmental variable to the `compiler`
 folder of the repository, for
-example on Linux `export OBERON_BIN=~/projects/oberonc/bin` or
-`set OBERON_BIN=C:\oberonc\bin` on Windows. Because you need an Oberon compiler
+example on Linux `export OBERON_BIN=/media/nemavasi/home2/nemavasi/oberonc/sub/compiler/bin` or
+`set OBERON_BIN=C:\oberonc\sub\compiler\bin` on Windows. Because you need an Oberon compiler
 to compile the sources in `src`, I have added to the repository the binaries of
 the compiler to perform the bootstrapping.
 
 By typing `make build` on the shell, the compiler will compile itself and
 write the files in the `out` folder. The `make bootstrap` command is equivalent
-to `make build`, but it overwrites the files in the `bin` folder.
+to `make build`, but it overwrites the files in the `compiler` folder.
 
 ## How to run the tests
 
 One typical test is to make sure that, by compiling the compiler, we get the
-same (bit by bit) class files originally included in the `bin` folder.
+same (bit by bit) class files originally included in the `compiler` folder.
 To run this test simply type `make bootstrapTest` (available only on Linux).
 This will compile the sources into the `bootstrapOut` folder and compare these
-resulting class files with the ones in `bin`. If something goes wrong
+resulting class files with the ones in `compiler`. If something goes wrong
 `sha1sums` will complain.
 
 To run the tests included in the `tests` folder, type `make test`. The output
@@ -68,7 +68,7 @@ should look like this:
 
 ## Using the compiler
 
-To use the compiler, you need to have the OBERON_BIN variable set to the `bin`
+To use the compiler, you need to have the OBERON_BIN variable set to the `compiler`
 folder of the repository. The command line syntax of `oberonc` is simple.
 Let's compile examples/Hello.Mod:
 
@@ -99,7 +99,7 @@ compilation of modules that import Hello. In this simple case Hello.Mod
 does not export anything, but the other modules in the `examples` folder do.
 
 To run Hello.class, you need the OberonRuntime.class and Out.class. These are
-present in the `bin` folder so they are already in the class path, we just need
+present in the `compiler` folder so they are already in the class path, we just need
 to include the current folder as well to locate Hello.class:
 
     Linux
