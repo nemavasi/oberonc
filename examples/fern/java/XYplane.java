@@ -13,12 +13,21 @@ public class XYplane {
   public static int X, Y, W, H;
   private static char key;
   private static Viewer viewer;
-  private static final int white = Color.WHITE.getRGB();
-  private static final int black = Color.BLACK.getRGB();
+  private static int penColor = Color.WHITE.getRGB();
+  private static int backColor = Color.BLACK.getRGB();
 
-  public static void Open() {
-    W = 800;
-    H = 800;
+  public static void SetPenColor(int r, int g, int b, int a){
+      penColor = new Color(r,g,b,a).getRGB();
+  }
+
+  public static void SetBackgroundColor(int r, int g, int b, int a){
+      backColor = new Color(r,g,b,a).getRGB();
+  }
+
+
+  public static void Open(int width, int height) {
+    W = width;
+    H = height;
     JFrame frame = new JFrame("XYPlane");
     viewer = new Viewer(W, H);
     frame.add(viewer);
@@ -31,16 +40,16 @@ public class XYplane {
   public static void Dot(int x, int y, int mode) {
     y = H - y - 1;
     if(mode == erase) {
-      viewer.canvas.setRGB(x, y, black);
+      viewer.canvas.setRGB(x, y, backColor);
     } else {
-      viewer.canvas.setRGB(x, y, white);
+      viewer.canvas.setRGB(x, y, penColor);
     }
     viewer.updateUI();
   }
 
   public static boolean isDot(int x, int y) {
     y = H - y - 1;
-    return viewer.canvas.getRGB(x, y) == white;
+    return viewer.canvas.getRGB(x, y) == penColor;
   }
 
   public static char Key() {
@@ -48,7 +57,7 @@ public class XYplane {
   }
 
   public static void Clear() {
-    viewer.fillCanvas(black);
+    viewer.fillCanvas(backColor);
   }
 
   private static class Viewer extends JPanel {
@@ -56,7 +65,7 @@ public class XYplane {
 
     public Viewer(int width, int height) {
       canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-      fillCanvas(black);
+      fillCanvas(backColor);
       setFocusable(true);
       requestFocus(true);
     }

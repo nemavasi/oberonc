@@ -52,5 +52,8 @@ MODULE  IFS;
   END Init;
 
 BEGIN
-  XYplane.Open; Init; Draw
+  XYplane.Open(800, 800);
+  XYplane.SetPenColor(255, 0, 0, 50);
+  Init;
+  Draw
 END IFS.
